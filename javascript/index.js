@@ -14,10 +14,9 @@ let milUni = document.getElementById('milUni');
 let splits = document.getElementById('splits');
 
 function printTime() {
-  intervalIdDom = setInterval(() => {
-    printMinutes();
-    printSeconds();
-  }, 1000)
+  printMinutes();
+  printSeconds();
+  printMilliseconds();
 }
 
 function printMinutes() {
@@ -33,7 +32,8 @@ function printSeconds() {
 
 // ==> BONUS
 function printMilliseconds() {
-  // ... your code goes here
+  milDec.innerHTML = chronometer.twoDigitsNumber(chronometer.getMilliseconds())[0];
+  milUni.innerHTML = chronometer.twoDigitsNumber(chronometer.getMilliseconds())[1];
 }
 
 function printSplit() {
@@ -47,6 +47,8 @@ function clearClock() {
   minUni.innerHTML = '0'
   secDec.innerHTML = '0'
   secUni.innerHTML = '0'
+  milDec.innerHTML = '0'
+  milUni.innerHTML = '0'
 }
 
 function clearSplits() {
@@ -80,13 +82,12 @@ function setResetBtn() {
 // Start/Stop Button
 btnLeft.addEventListener('click', () => {
 if(btnLeft.classList.contains('start')){
-  chronometer.startClick();
-  printTime();
+  chronometer.startClick(printTime);
   setStopBtn();
   setSplitBtn();
 } else {
   chronometer.stopClick();
-  clearInterval(intervalIdDom);
+  // clearInterval(intervalIdDom);
   setStartBtn();
   setResetBtn();
 }
